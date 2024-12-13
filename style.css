@@ -1,0 +1,59 @@
+/* Estilização global */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  
+  .image-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    gap: 10px;
+  }
+  
+  .image-container img {
+    max-width: none;
+    max-height: none;
+    width: 100%;
+    height: auto;
+    transform-origin: center;
+    cursor: grab;
+  }
+  
+
+
+/*
+.image-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: black;
+    gap: 10px;
+    padding: 10px 0;
+    position: relative;
+  }
+  
+
+  .image-container img {
+    max-width: none;
+    max-height: none;
+    width: 100%;
+    height: auto;
+    transform-origin: center;
+    cursor: grab;
+    transition: transform 0.3s ease;
+    background-color: #333;
+    border: 2px solid white;
+  }
+  
+  */

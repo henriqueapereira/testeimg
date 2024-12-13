@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1, user-scalable=yes, minimum-scale=0.1, maximum-scale=1000">
+    <title>QD1-R01 QD2-R01</title>
+</head>
+<body>
+    <div class="image-container">
+        <img src="QD1-R01.jpg" alt="">
+        <img src="QD2-R01.jpg" alt="">
+        
+    </div>
+    <script>
+        const container = document.querySelector('.image-container');
+        const images = document.querySelectorAll('.image-container img');
+
+        images.forEach((img) => {
+        let scale = 1; // Escala inicial para cada imagem
+
+        img.addEventListener('wheel', (event) => {
+            event.preventDefault();
+
+            // Calcula o novo nível de zoom
+            const zoomFactor = 0.1;
+            scale += event.deltaY > 0 ? -zoomFactor : zoomFactor;
+
+            // Sem limites artificiais, mas evita escala negativa
+            scale = Math.max(0.1, scale);
+
+            // Calcula o foco do zoom
+            const rect = img.getBoundingClientRect();
+            const originX = (event.clientX - rect.left) / rect.width;
+            const originY = (event.clientY - rect.top) / rect.height;
+
+            img.style.transformOrigin = `${originX * 100}% ${originY * 100}%`;
+            img.style.transform = `scale(${scale})`;
+        });
+
+        // Suporte para pinch-to-zoom em dispositivos touch
+        let lastDistance = null;
+        container.addEventListener('touchmove', (event) => {
+            if (event.touches.length === 2) {
+            event.preventDefault();
+
+            // Calcula a distância entre os dois dedos
+            const touch1 = event.touches[0];
+            const touch2 = event.touches[1];
+            const currentDistance = Math.sqrt(
+                Math.pow(touch2.pageX - touch1.pageX, 2) +
+                Math.pow(touch2.pageY - touch1.pageY, 2)
+            );
+
+            // Ajusta o zoom com base na variação da distância
+            if (lastDistance !== null) {
+                const zoomFactor = (currentDistance - lastDistance) * 0.005;
+                scale += zoomFactor;
+                scale = Math.max(0.1, scale);
+                img.style.transform = `scale(${scale})`;
+            }
+
+            lastDistance = currentDistance;
+            }
+        });
+
+        container.addEventListener('touchend', () => {
+            lastDistance = null; // Reseta a distância quando os dedos saem da tela
+        });
+        });
+
+    </script>
+</body>
+
+
+</html>
